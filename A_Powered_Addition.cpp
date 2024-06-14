@@ -74,43 +74,37 @@ void print(unordered_map<T, V> v) {
 //------------------------------------------------------------------------------------
 
 void solve() {
-    string s, ans;
-    cin >> s;
-    int k; cin >> k;
-
-    deque<int> nums[10];
-
-    for (int i = 0; i < s.size(); i++) {
-        nums[s[i] - '0'].pb(i);
+    ll n;
+    cin >> n;
+    vector<ll> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
     }
+    ll ans = -1;     // seconds required is equal to the most significant bit of the difference between the two numbers that are not in increasing order
 
-    for (int i = 0; i < s.size(); i++) {
-        int curind = s.size(), newind = s.size();
-        for (int j = 0; j < 10; j++) {
-            if (nums[j].size() > 0) curind = min(curind, nums[j].front());
-        }
-        for (int j = (i == 0); j < 10; j++) {
-            if (nums[j].size() && nums[j].front() - curind <= k) {
-                ans += ('0' + j);
-                newind = nums[j].front();
-                break;
-            }
-        }
-        k -= newind - curind;
-        for (int j = 0; j < 10; j++) {
-            while (nums[j].size() && nums[j].front() <= newind) nums[j].pop_front();
+    for (int i = 1; i < n; i++)
+    {
+        if (a[i] < a[i - 1]) {
+            ll dif = a[i - 1] - a[i];
+            ll highestsetbit = (ll)(log2(dif));
+            ans = max(ans, highestsetbit);
+            a[i] = a[i - 1];
         }
     }
-    cout << string(ans.begin(), ans.end() - k) << endl;
+    // print(a);
+    if (ans == -1) {
+        cout << 0 << endl;
+    }
+    else {
+        cout << ans + 1 << endl;
+    }
 }
 
 int main() {
     fastio();
-
     int t = 1;
     cin >> t;
     while (t--) {
-        // cout << "#test case- " << t << endl;
         solve();
     }
 }

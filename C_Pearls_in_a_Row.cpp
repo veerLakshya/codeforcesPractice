@@ -74,43 +74,43 @@ void print(unordered_map<T, V> v) {
 //------------------------------------------------------------------------------------
 
 void solve() {
-    string s, ans;
-    cin >> s;
-    int k; cin >> k;
-
-    deque<int> nums[10];
-
-    for (int i = 0; i < s.size(); i++) {
-        nums[s[i] - '0'].pb(i);
-    }
-
-    for (int i = 0; i < s.size(); i++) {
-        int curind = s.size(), newind = s.size();
-        for (int j = 0; j < 10; j++) {
-            if (nums[j].size() > 0) curind = min(curind, nums[j].front());
+    ll n;
+    cin >> n;
+    vll a(n + 1);
+    for (int i = 1; i <= n; i++)cin >> a[i];
+    set<int> st;
+    vector<pair<int, int>> ans;
+    int startind = 1;
+    for (int i = 1; i <= n; i++) {
+        if (st.find(a[i]) != st.end()) {
+            st.clear();
+            ans.pb({ startind,i });
+            startind = i + 1;
         }
-        for (int j = (i == 0); j < 10; j++) {
-            if (nums[j].size() && nums[j].front() - curind <= k) {
-                ans += ('0' + j);
-                newind = nums[j].front();
-                break;
-            }
-        }
-        k -= newind - curind;
-        for (int j = 0; j < 10; j++) {
-            while (nums[j].size() && nums[j].front() <= newind) nums[j].pop_front();
+        else {
+            st.insert(a[i]);
         }
     }
-    cout << string(ans.begin(), ans.end() - k) << endl;
+    if (!ans.size()) {
+        cout << -1 << endl;
+        return;
+    }
+    else {
+        cout << ans.size() << endl;
+    }
+    if (st.size() > 0) {
+        ans.back().ss += st.size();
+    }
+    for (auto i : ans) {
+        cout << i.ff << " " << i.ss << endl;
+    }
 }
 
 int main() {
     fastio();
-
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--) {
-        // cout << "#test case- " << t << endl;
         solve();
     }
 }
