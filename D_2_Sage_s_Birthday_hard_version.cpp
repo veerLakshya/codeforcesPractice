@@ -168,31 +168,47 @@ bool isPowerOfTwo(ll x)
 
 /*-----------------------------------Actual Code---------------------------------*/
 bool check(int mid, vll v) {
-    int i = v.size() - 1;
-    int cnt = 1;
-    for (int j = mid - 1;j >= 0;j--, i--) {
-
+    ll i = v.size() - 1;
+    ll okay = 1;
+    for (int j = mid - 1; j >= 0; j--, i--) {
+        okay &= (v[i] > v[j] && v[i - 1] > v[j]);
     }
-
+    return okay;
 }
 void solve() {
     int n;
     cin >> n;
     vll v(n);
-    rep(i, 0, n)cin >> v[i];
-    int low = 0;
-    int high = n - 1;
-    int ans;
-    while (low <= high) {
-        int mid = low + (high - low) / 2;
+    rep0to(i, n) {
+        cin >> v[i];
+    }
+    sort(all(v));
+    ll ans = 0;
+    ll l = 1, r = ((n + 1) / 2) - 1;
+    while (l <= r) {
+        ll mid = (l + r) / 2;
         if (check(mid, v)) {
             ans = mid;
-            low = mid + 1;
+            l = mid + 1;
         }
-        else
-            high = mid - 1;
+        else {
+            r = mid - 1;
+        }
     }
-    c
+    cout << ans << endl;
+    vll ans1(n);
+    ll i = n - 1, j = ans - 1;
+    for (int k = 0; k < n; k++) {
+        if (k % 2 == 0 || j == -1) {
+            ans1[k] = v[i];
+            i--;
+        }
+        else {
+            ans1[k] = v[j];
+            j--;
+        }
+    }
+    printv(ans1);
 }
 
 int main() {
