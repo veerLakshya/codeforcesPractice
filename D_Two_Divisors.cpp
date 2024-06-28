@@ -59,7 +59,7 @@ typedef set<ll> stll;
 #define br cout<<"\n"
 #define ps(x,y) fixed<<setprecision(y)<<x
 #define printv(a) {for(auto u:a) {cout<<u<<" ";} cout<<endl;}
-#define printvp(a) {for(auto u:a) {cout<<u.ff<<" "<<u.ss<<" ";} cout<<endl;}
+// #define printv(a) {for(auto u:a) {cout<<u.ff<<" "<<u.ss<<" ";} cout<<endl;}
 #define kitniBaar(t) while (t--)
 
 //Debug Options-
@@ -113,25 +113,62 @@ ll powermod(ll x, ll y, ll p) { ll res = 1;x = x % p;if (x == 0) return 0;while 
 //To find modulo inverse, call powermod(A,M-2,M)
 
 /*~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-CODE~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-*/
-
+vll d1, d2;
 void ekbaar() {
+    inll(n);
 
+    vll a(n);
+    cin >> a;
+    ll mx = 0;
+    mx = *max_element(all(a));
+    Sieve(mx);
+    get_primes(mx);
+    for (auto x : a) {
+        ll num = x;
+        bool flag = false;
+        ll div1 = -1, div2 = -1;
+        for (auto i : primes) {
+            if (i * i > num) break;
+            if (num % i == 0 && num / i != i) {
+                while (num % i == 0) num /= i;
+                if (num != 1) {
+                    flag = true;
+                    div1 = i;
+                    div2 = num;
+                    break;
+                }
+            }
+        }
+        if (flag) {
+            d1.pb(div1);
+            d2.pb(div2);
+        }
+        else {
+            d1.pb(-1);
+            d2.pb(-1);
+        }
+    }
 }
 
 int main() {
-    auto start = chrono::high_resolution_clock::now();
     fastio();
+    auto start = chrono::high_resolution_clock::now();
     int t = 1;
     // cin >> t;
     kitniBaar(t) {
-        // cout<<"Test Case #"<<t<<":\n";
         ekbaar();
     }
+    printv(d1);
+    printv(d2);
     auto end = chrono::high_resolution_clock::now();
-    double time_taken = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+
+    double time_taken =
+        chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+
     time_taken *= 1e-9;
-    // cerr << "Time taken by program is : " << fixed << time_taken << setprecision(9) << " sec" << endl;
-    return 0;
+    cout << "Time taken by program is : " << fixed
+        << time_taken << setprecision(9);
+    cout << " sec" << endl;
 }
 /*~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-*/
 /* stuff you should look for-
