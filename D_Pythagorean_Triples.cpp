@@ -171,12 +171,8 @@ void solve() {
     ll n;
     cin >> n;
     ll ans = 0;
-    for (ll b = 1; b <= n; b++) {
-        ll asq = 2 * b + 1;
-        ll c = b + 1;
-        if (asq + b * b > c * c) {
-            if (c = asq - b)ans++;
-        }
+    for (int i = 3; i * i <= 2 * n - 1; i += 2) {
+        ans++;
     }
     cout << ans << "\n";
 }
@@ -188,12 +184,3 @@ int main() {
         solve();
     }
 }
-
-
-/* stuff you should look for
-    1) data type overflows, array bounds
-    2) special cases (n=1/n=0 ?)
-    3) do smth instead of nothing and stay organized
-    4) WRITE STUFF DOWN
-    5) DON'T GET STUCK ON ONE APPROACH
-*/

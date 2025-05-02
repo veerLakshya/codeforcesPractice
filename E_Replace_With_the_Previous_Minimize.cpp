@@ -16,37 +16,46 @@ using namespace std;
 #define NINF -1e9
 #define fastio() ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
 
+class UnionFind {
+private:
+    vector<int> p;
+public:
+    UnionFind(int n) {
+        p.assign(n, 0);
+        iota(p.begin(), p.end(), 0);
+    }
 
+    int findSet(int i) {
+        return (p[i] == i) ? i : (p[i] = findSet(p[i]));
+    }
+
+    bool isSameSet(int i, int j) {
+        return findSet(i) == findSet(j);
+    }
+
+    void unionSet(int i, int j) {
+        if (!isSameSet(i, j)) {
+            int x = findSet(i), y = findSet(j);
+            if (x > y)swap(x, y);
+            p[y] = x;
+        }
+    }
+};
 
 void solve() {
     int n, k;
     cin >> n >> k;
     string s;
     cin >> s;
-    char maxPossibleChar = 'a';
-    char notPossibleChar = 'a';
-    for (int i = 0;i < n;i++) {
-        if (s[i] - 'a' > k) {
-            notPossibleChar = s[i];
-            break;
-        }
-        if (s[i] > maxPossibleChar) {
-            maxPossibleChar = s[i];
-        }
-    }
-    int stepCountforMaxPossibleChar = maxPossibleChar - 'a';
-    int leftCount = k - stepCountforMaxPossibleChar;
-    char to = notPossibleChar - leftCount;
-    for (char c = notPossibleChar;c > to;c--) {
-        for (char& e : s) {
-            if (e == c) {
-                e--;
-            }
-        }
-    }
-    for (char& e : s) {
-        if (e <= maxPossibleChar) {
-            e = 'a';
+
+    UnionFind dsu(26);
+
+    for (auto& i : s) {
+        i = dsu.findSet(i - 'a') + 'a';
+        while (i - 'a' > 0 && k > 0) {
+            dsu.unionSet(i - 'a', i - 'a' - 1);
+            i = dsu.findSet(i - 'a') + 'a';
+            k--;
         }
     }
     cout << s << endl;

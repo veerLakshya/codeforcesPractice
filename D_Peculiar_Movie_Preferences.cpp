@@ -1,225 +1,186 @@
-//Lakshya Veer Singh
-/*--------------------------------Template------------------------------*/
-
+// Lakshya Veer Singh
+/*~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-*/
 #include <bits/stdc++.h>
 using namespace std;
 
-//Print Options-
+//Speed
+#define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
+
+//Typedef
+typedef long long ll;
+typedef pair<int, int> pi;
+typedef pair<ll, ll> pll;
+typedef vector<int> vi;
+typedef vector<ll> vll;
+typedef vector<pi> vpi;
+typedef vector<pll> vpll;
+typedef vector<vi> vvi;
+typedef vector<vll> vvll;
+typedef map<int, int> mii;
+typedef map<ll, ll> mll;
+typedef map<char, int> mci;
+typedef set<int> sti;
+typedef set<ll> stll;
+
+//Macros
+#define PI (3.141592653589)
+#define M 1000000007
+#define pb push_back
+#define ff first
+#define ss second
+#define pushb push_back
+#define popb pop_back
+#define all(v) v.begin(), v.end()
+#define rall(v) v.rbegin(), v.rend()
+#define sz(v) ((int)v.size())
+#define Num_of_Digits(n) ((int)log10(n) + 1)
+#define set_bits(x) __builtin_popcountll(x)
+#define zero_bits(x) __builtin_ctzll(x)
+#define inint(x) int x; cin>>x;
+#define inll(x) long long int x; cin>>x;
+#define instr(x) string x; cin>>x;
+#define endl "\n"
+#define trav(a, b) for (auto&(a) : (b))
+#define rep0n(i, e) for (int i = 0; i < (e); ++i) 
+#define rep(a, b, c) for (int(a) = (b); (a) < (c); ++(a))
+#define repll(a, b, c) for (ll(a) = (b); (a) < (c); ++(a))
+#define repn(a, b, c) for (int(a) = (b); (a) <= (c); ++(a))
+#define repnll(a, b, c) for (ll(a) = (b); (a) <= (c); ++(a))
+#define repr(a, b, c) for (int(a) = (b); (a) >= (c); --(a))
+#define reprll(a, b, c) for (int(a) = (b); (a) >= (c); --(a))
+#define repsq(a, b, c) for (int(a) = (b); (a) * (a) <= (c); ++(a))
+#define repsqll(a, b, c) for (ll(a) = (b); (a) * (a) <= (c); ++(a))
+#define pr(a) cout<<a
+#define prs(a) cout<<a<<" "
+#define prn(a) cout<<a<<"\n"
+#define pyes cout<<"YES"<<"\n"
+#define pno cout<<"NO"<<"\n"
+#define pyn(ans) printf("%s\n", (ans)?"Yes":"No");
+#define br cout<<"\n"
+#define ps(x,y) fixed<<setprecision(y)<<x
+#define printv(a) {for(auto u:a) {cout<<u<<" ";} cout<<endl;}
+#define printvp(a) {for(auto u:a) {cout<<u.ff<<" "<<u.ss<<" ";} cout<<endl;}
+#define kitniBaar(t) while (t--)
+
+//Debug Options-
 void dbg_out() { cerr << endl; }
 template<typename Head, typename... Tail>
 void dbg_out(Head H, Tail... T) { cerr << ' ' << H; dbg_out(T...); }
 #define dbg(...) cerr << "(" << #__VA_ARGS__ << "):", dbg_out(__VA_ARGS__)
 
-template<typename T>
-void print(vector<T> v) {
-    cout << "[ ";
-    for (auto i : v) {
-        cout << (i);
-        cout << " ";
-    }
-    cout << "]";
-}
+template <class T, class V> void _print(pair <T, V> p);
+template <class T> void _print(vector <T> v);
+template <class T> void _print(set <T> v);
+template <class T> void _print(multiset <T> v);
+template <class T, class V> void _print(pair <T, V> p) { cerr << "{"; _print(p.f); cerr << ","; _print(p.s); cerr << "}"; }
+template <class T> void _print(vector <T> v) { cerr << "[ "; for (T i : v) { _print(i); cerr << " "; } cerr << "]"; }
+template <class T> void _print(set <T> v) { cerr << "[ "; for (T i : v) { _print(i); cerr << " "; } cerr << "]"; }
+template <class T> void _print(multiset <T> v) { cerr << "[ "; for (T i : v) { _print(i); cerr << " "; } cerr << "]"; }
+template <class T, class V> void _print(map <T, V> v) { cerr << "[ "; for (auto i : v) { _print(i); cerr << " "; } cerr << "]"; }
 
-template<typename T>
-void print(set<T> v) {
-    cout << "[ ";
+//Operator Overloads
+template<typename T> // cin >> vector<T>
+istream& operator>>(istream& istream, vector<T>& v) { for (auto& it : v)cin >> it;return istream; }
+template<typename T> // cout << vector<T>
+ostream& operator<<(ostream& ostream, const vector<T>& c) { for (auto& it : c) cout << it << " "; return ostream; }
 
-    for (auto i : v) {
-        cout << (i);
-        cout << " ";
-    }
+//Sorting
+bool sorta(const pair<int, int>& a, const pair<int, int>& b) { return (a.second < b.second); }
+bool sortd(const pair<int, int>& a, const pair<int, int>& b) { return (a.second > b.second); }
 
-    cout << "]";
-}
+//Bits
+string decToBinary(int n) { string s = "";int i = 0;while (n > 0) { s = to_string(n % 2) + s;n = n / 2;i++; }return s; }
+ll binaryToDecimal(string n) { string num = n;ll dec_value = 0;int base = 1;int len = num.length();for (int i = len - 1; i >= 0; i--) { if (num[i] == '1')dec_value += base;base = base * 2; }return dec_value; }
 
-template<typename T>
-void print(multiset<T> v) {
-    cout << "[ ";
+//Check
+bool isPrime(ll n) { if (n <= 1)return false;if (n <= 3)return true;if (n % 2 == 0 || n % 3 == 0)return false;for (int i = 5;i * i <= n;i = i + 6)if (n % i == 0 || n % (i + 2) == 0)return false;return true; }
+bool isPowerOfTwo(int n) { if (n == 0)return false;return (ceil(log2(n)) == floor(log2(n))); }
+bool isPerfectSquare(ll x) { if (x >= 0) { ll sr = sqrt(x);return (sr * sr == x); }return false; }
 
-    for (auto i : v) {
-        cout << (i);
-        cout << " ";
-    }
+//Constants
+vector <ll> primes;
+vector <bool> is_prime;
 
-    cout << "]";
-}
+// Mathematical functions
+void Sieve(int n) { is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for (ll i = 2; i * i <= n; i++) if (is_prime[i]) for (ll j = i * i; j <= n; j += i) is_prime[j] = false; }
+void get_primes(int n) { for (int i = 2; i <= n; i++)  if (is_prime[i])  primes.push_back(i); }
+ll mod_add(ll a, ll b, ll m) { a = a % m; b = b % m; return (((a + b) % m) + m) % m; }
+ll mod_sub(ll a, ll b, ll m) { a = a % m; b = b % m; return (((a - b) % m) + m) % m; }
+ll gcd(ll a, ll b) { if (b == 0)return a;return gcd(b, a % b); } //__gcd 
+ll lcm(ll a, ll b) { return (a / gcd(a, b) * b); }
+ll moduloMultiplication(ll a, ll b, ll mod) { ll res = 0;a %= mod;while (b) { if (b & 1)res = (res + a) % mod;b >>= 1; }return res; }
+ll powermod(ll x, ll y, ll p) { ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0) { if (y & 1)res = (res * x) % p;y = y >> 1;x = (x * x) % p; }return res; }
+//To find modulo inverse, call powermod(A,M-2,M)
 
-template<typename T, typename V>
-void print(map<T, V> v) {
-    cout << "{ ";
-    for (auto p : v) {
-        cout << p;
-        cout << " ";
-    }
+/*~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-CODE~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-*/
 
-    cout << "}";
-}
-
-template<typename T, typename V>
-void print(unordered_map<T, V> v) {
-    cout << "{ ";
-    for (auto p : v) {
-        cout << (p);
-        cout << " ";
-    }
-
-    cout << "}";
-}
-
-//Data types and Data structures-
-typedef long long int ll;
-typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
-typedef pair<string, string> pss;
-typedef vector<int> vi;
-typedef vector<vi> vvi;
-typedef vector<ll> vll;
-typedef vector<vll> vvl;
-typedef vector<double> vd;
-typedef vector<pii> vpi;
-typedef vector<pll> vpll;
-typedef unordered_map<int, int> umi;
-typedef unordered_map<ll, ll> umll;
-typedef map<int, int> mi;
-typedef map<ll, ll> mll;
-typedef set<int> si;
-typedef set<ll> setll;
-typedef set<char> sc;
-
-
-//Macros-
-#define fi first
-#define se second
-#define mp make_pair
-#define pb push_back
-#define ppb pop_back
-#define maxe max_element
-#define mine min_element
-
-#define sz(v) ((int)v.size())
-#define all(v) v.begin(), v.end()
-#define rall(v) v.rbegin(), v.rend()
-#define kitniBaar(t) while (t--)
-
-#define yes cout<<"yes"<<"\n"
-#define no cout<<"no"<<"\n"
-#define br cout<<"\n"
-#define yn(ans) printf("%s\n", (ans)?"Yes":"No");
-
-
-#define trav(a, b) for (auto&(a) : (b))
-#define rep0to(i, e) for (int i = 0; i < (e); ++i) 
-#define rep(a, b, c) for (int(a) = (b); (a) < (c); ++(a))
-#define repll(a, b, c) for (ll(a) = (b); (a) < (c); ++(a))
-#define repn(a, b, c) for (int(a) = (b); (a) <= (c); ++(a))
-#define repnll(a, b, c) for (ll(a) = (b); (a) <= (c); ++(a))
-#define repd(a, b, c) for (int(a) = (b); (a) >= (c); --(a))
-#define repdll(a, b, c) for (int(a) = (b); (a) >= (c); --(a))
-#define repsq(a, b, c) for (int(a) = (b); (a) * (a) <= (c); ++(a))
-#define repsqll(a, b, c) for (ll(a) = (b); (a) * (a) <= (c); ++(a))
-#define SORT(v) sort(all(v))
-#define MAX(a, b) a = max(a, b)
-#define MIN(a, b) a = min(a, b)
-#define SQR(x) ((LL)(x) * (x))
-#define alla(arr, sz) arr, arr + sz
-#define REVERSE(v) reverse(all(v))
-#define SORTA(arr, sz) sort(alla(arr, sz))
-#define pr(a) cout<<a
-#define prs(a) cout<<a<<" "
-#define prn(a) cout<<a<<"\n"
-#define printv(a) {for(auto u:a) {cout<<u<<" ";} cout<<endl;}
-#define setbits(x) __builtin_popcountll(x)
-
-/*---Sum of array elements---*/
-template<typename T>
-T arrSum(vector<T>& vec)
-{
-    T sum = 0;
-    for (ll i = 0; i < vec.size(); i++)
-        sum += vec[i];
-    return sum;
-}
-/*---GCD of two Numbers---*/
-ll gcd(ll a, ll b) {
-    if (b == 0)
-        return a;
-    else
-        return gcd(b, a % b);
-}
-/*---LCM of two Numbers---*/
-ll lcm(ll a, ll b) {
-    if (a == b)
-        return a;
-    else
-        return (a * b) / gcd(a, b);
-}
-/*---To check if num = 2^x---*/
-bool isPowerOfTwo(ll x)
-{
-    if (x == 0)
-        return false;
-    else
-    {
-        while (x % 2 == 0) x /= 2;
-        return (x == 1);
-    }
-}
-
-
-/*-----------------------------------Actual Code---------------------------------*/
-
-void solve() {
+void ekbaar() {
     int n;
     cin >> n;
     vector<string> v(n);
-    int palCnt = 0;
+    int pal = 0;
     for (int i = 0; i < n; i++) {
         cin >> v[i];
         int len = v[i].length();
-        if (v[i][0] == v[i][len - 1] || len == 1) {
-            palCnt++;
+        if (len == 1 || (v[i][0] == v[i][len - 1])) {
+            pal++;
         }
     }
-    if (palCnt >= 1) {
+    if (pal == n) {
         cout << "YES" << endl;
         return;
     }
-    unordered_map<string, int> mp;
-    for (int i = 0; i < n; i++) {
-        string s = v[i];
-        reverse(s.begin(), s.end());
-        if (mp[s] == 1) {
+
+    set<string> mp;
+    // for 2 
+    // ex1: ab ba ex2: abc ba
+    trav(i, v) {
+        string s = i;
+        reverse(all(s));
+        if (mp.find(s) != mp.end()) {
             cout << "YES" << endl;
             return;
         }
-        mp[v[i]] = 1;
-        if (s.size() & 1) {
-            s.pop_back();
-            if (mp[s] == 1) {
-                cout << "YES" << endl;
-                return;
-            }
-            v[i].pop_back();
-            mp[v[i]] = 1;
+        if (sz(s) == 3) mp.insert(i.substr(0, 2));
+        mp.insert(i);
+    }
+    mp.clear();
+    // for 3
+    // ex1: ab cba ex2: abc cba
+    trav(i, v) {
+        string s = i;
+        reverse(all(s));
+        if (sz(s) == 3 && (mp.find(s) != mp.end() || mp.find(s.substr(0, 2)) != mp.end())) {
+            cout << "YES" << endl;
+            return;
         }
+        mp.insert(i);
     }
     cout << "NO" << endl;
 }
-
 int main() {
-    int t;
+    auto start = chrono::high_resolution_clock::now();
+    fastio();
+    int t = 1;
     cin >> t;
     kitniBaar(t) {
-        // cout << "test case: " << t << endl;
-        solve();
+        // cout<<"Test Case #"<<t<<":\n";
+        ekbaar();
     }
+    auto end = chrono::high_resolution_clock::now();
+    double time_taken = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+    time_taken *= 1e-9;
+    // cerr << "Time taken by program is : " << fixed << time_taken << setprecision(9) << " sec" << endl;
+    return 0;
 }
+/*~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-*/
+/* stuff you should look for-
 
-
-/* stuff you should look for
-    1) data type overflows, array bounds
-    2) special cases (n=1/n=0 ?)
-    3) do smth instead of nothing and stay organized
-    4) WRITE STUFF DOWN
+    1) DATA TYPE OVERFLOW
+    2) SPECAIL CASES (n=1/n=0 ?)
+    3) WRITE STUFF DOWN
+    4) DO SOMTHING INSTED OF NOTHING AND STAY ORGANIZED
     5) DON'T GET STUCK ON ONE APPROACH
+
+    *Lakshya Veer Singh
 */
